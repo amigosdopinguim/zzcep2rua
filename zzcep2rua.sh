@@ -1,7 +1,12 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------
 # Procura o CEP pelo nome da rua, cidade e UF informados
-# 
+# -h (exibe ajuda, cabeçalho da função)
+# -e (exibe o endereço completo)
+# Obs.: As opções (parâmetro: -h ou --help ; -e ou --endereco)
+#       , se forem utilizadas, o -h não recebe complementp.
+#				e o -e ou --endereco , deve ser utilizado antes de 
+#				digitar o endereço.
 #
 # Usos:	zzcep2rua [rua cidade uf]
 #			 	zzcep2rua [-e] [rua cidade uf]
@@ -56,8 +61,19 @@ zzcep2rua(){
 			case $1 in
 
 				-h | --help)
-					echo "Help"
+					echo " Usos:	zzcep2rua [rua cidade uf]
+			 	zzcep2rua [-e] [rua cidade uf]
+			 	zzcep2rua [--endereco] [rua cidade uf]
+			 	zzcep2rua [-h]
+			 	zzcep2rua [--help]
+
+ Exs.: zzcep2rua rua santana salvador ba
+				zzcep2rua -e rua rio da ilha salvador ba
+      	zzcep2rua rua cambui londrina pr
+			 	zzcep2rua rua silverio lelis sao paulo sp
+				zzcep2rua -e jobim rio de janeiro rj"
 					shift
+					exit 0
 					;;
 				-e | endereco)
 					echo "$endcom";
