@@ -1,4 +1,8 @@
 #!/bin/bash
+
+source /usr/bin/funcoeszz   # inclui o ambiente ZZ
+ZZPATH=$PWD/chaves.sh       # o PATH desse script
+
 # ----------------------------------------------------------------------------
 # Procura o CEP pelo nome da rua, cidade e UF informados
 # -h (exibe ajuda, cabeçalho da função)
@@ -27,6 +31,9 @@
 # Requisitos: zztool
 # ----------------------------------------------------------------------------
 zzcep2rua(){
+
+		zzzz -h cep2rua "$1" && return
+
 		if [ "$*" ]; then
 			echo -n
 		else
@@ -35,16 +42,16 @@ zzcep2rua(){
 		fi
 
 		# variavel do que for digitado
-		endereco="$*"
+		local endereco="$*"
 
 		# troca os espaços em branco por '+' para efetuar pesquisa
-		endereco="$(echo $endereco | sed -e 's/ /+/g')"
+		local endereco="$(echo $endereco | sed -e 's/ /+/g')"
 
 		# endereço para pesquisa
-		urlendereco="http://maps.google.com/maps/api/geocode/json?address=$*&sensor=false"
+		local urlendereco="http://maps.google.com/maps/api/geocode/json?address=$*&sensor=false"
 
 		# baixa o código fonte do arquivo pesquisado
-		endcom="$(lynx -source "$urlendereco" |
+		local endcom="$(lynx -source "$urlendereco" |
 
 		# imprime só a linha que contém a palavra 'formatted_address'
 		sed -n '/formatted_address/p' |
@@ -80,7 +87,7 @@ zzcep2rua(){
 					shift
 					;;
 				*)
-					cep=$(echo $endcom | tr -d -c 0123456789)
+					local cep=$(echo $endcom | tr -d -c 0123456789)
 					if [ "$cep" = "" ]; then
 						echo "Cep não encontrado";
 					else
